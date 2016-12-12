@@ -36,9 +36,25 @@ class MainHandler(webapp2.RequestHandler):
     def post(self):
 		self.response.write(template.render('main.html',{}))
 		self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
+		
+class BasqueHandler(webapp2.RequestHandler):
+    def get(self):
+
+		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Kaixo Mundoa </h1> <img src=/images/irudia.gif>')
+        
+class SpanishHandler(webapp2.RequestHandler):
+    def get(self):
+		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Hola Mundo </h1> <img src=/images/irudia.gif>')
+		
+class EnglishHandler(webapp2.RequestHandler):
+    def get(self):
+		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Hello World </h1> <img src=/images/irudia.gif>')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+	('/eu', BasqueHandler),
+	('/es', SpanishHandler),
+	('/en', EnglishHandler)
 ], debug=True)
 
 
