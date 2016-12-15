@@ -24,6 +24,7 @@
 #def post (self)
 #	self.request.get ('email')
 #
+<<<<<<< HEAD
 
 import webapp2
 import re
@@ -45,11 +46,19 @@ def validar_email(email):
 	return EMAIL_RE.match(email)
 	
 		
+=======
+import webapp2
+
+from google.appengine.ext.webapp \
+	import template
+
+>>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 class MainHandler(webapp2.RequestHandler):
     def get(self):
 	    self.response.write(template.render('main.html',{}))
 
     def post(self):
+<<<<<<< HEAD
 		
 		USUARIO=self.request.get("usuario")
 		CLAVE=self.request.get("clave")
@@ -82,6 +91,14 @@ class MainHandler(webapp2.RequestHandler):
 		
 class BasqueHandler(webapp2.RequestHandler):
     def get(self):
+=======
+		self.response.write(template.render('main.html',{}))
+		self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
+		
+class BasqueHandler(webapp2.RequestHandler):
+    def get(self):
+
+>>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Kaixo Mundoa </h1> <img src=/images/irudia.gif>')
         
 class SpanishHandler(webapp2.RequestHandler):
@@ -92,7 +109,10 @@ class EnglishHandler(webapp2.RequestHandler):
     def get(self):
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Hello World </h1> <img src=/images/irudia.gif>')
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
 	('/eu', BasqueHandler),

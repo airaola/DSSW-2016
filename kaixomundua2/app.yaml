@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 application: kaixomundua-151116
 version: 1
 runtime: python27
@@ -21,3 +22,28 @@ handlers:
 libraries:
 - name: webapp2
   version: "2.5.2"
+=======
+application: kaixomundua-151116
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /images
+  static_dir: static/imagenes
+  
+- url: /css
+  static_dir: static/stylesheets
+  
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+>>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a

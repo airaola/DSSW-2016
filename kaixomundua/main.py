@@ -40,7 +40,11 @@ class EnglishHandler(webapp2.RequestHandler):
 		self.response.write('<head><link type="text/css" href="/static/css/bootstrap.css"></head><h1>Hello World </h1> <img src=/images/irudia.gif>')
 
 app = webapp2.WSGIApplication([
+<<<<<<< HEAD
     ('/', MainHandler),
+=======
+    ('/eu', MainHandler),
+>>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 	('/es', SpanishHandler),
 	('/en', EnglishHandler)
 ], debug=True)
