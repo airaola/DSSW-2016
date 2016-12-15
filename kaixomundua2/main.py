@@ -24,22 +24,64 @@
 #def post (self)
 #	self.request.get ('email')
 #
-import webapp2
 
+import webapp2
+import re
 from google.appengine.ext.webapp \
 	import template
 
+
+USUARIO_RE = re.compile(r"^([a-zA-Z0-9_-])$")
+CLAVE_RE = re.compile(r"^.{6,20}$")
+EMAIL_RE = re.compile(r"^([a-zA-Z0-9_.])+\@(([a-zA-Z0-9])+\.)+([a-zA-Z0-9]{2,4})$")
+
+def validar_usuario(usuario):
+	return USUARIO_RE.match(usuario)
+
+def validar_clave(clave):
+	return CLAVE_RE.match(clave)
+
+def validar_email(email):
+	return EMAIL_RE.match(email)
+	
+		
 class MainHandler(webapp2.RequestHandler):
     def get(self):
 	    self.response.write(template.render('main.html',{}))
 
     def post(self):
-		self.response.write(template.render('main.html',{}))
-		self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
+		
+		USUARIO=self.request.get("usuario")
+		CLAVE=self.request.get("clave")
+		DOBLECLAVE=self.request.get("dobleclave")
+		EMAIL=self.request.get("email")
+	
+		error = False
+		
+		error_de_usuario=''
+		error_de_clave=''
+		error_de_email=''
+		
+		if not(validar_usuario(USUARIO)):
+			error_de_usuario='Nombre incorrecto!!'
+			error = True
+		if not((validar_clave(CLAVE)) and (CLAVE==DOBLECLAVE)):	
+			error_de_clave='Password incorrecto!!'
+			error = True	
+		if not(validar_email(EMAIL)):
+			error_de_email='Email incorrecto!!'			
+			error = True
+		
+		if (error):		
+			self.response.write(template.render('main.html',{}))
+			self.response.write(error_de_usuario + ' ' + error_de_clave + ' ' + error_de_email)
+		else:
+			self.response.write(template.render('main.html',{}))
+			self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
+			
 		
 class BasqueHandler(webapp2.RequestHandler):
     def get(self):
-
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Kaixo Mundoa </h1> <img src=/images/irudia.gif>')
         
 class SpanishHandler(webapp2.RequestHandler):
@@ -50,6 +92,7 @@ class EnglishHandler(webapp2.RequestHandler):
     def get(self):
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Hello World </h1> <img src=/images/irudia.gif>')
 
+		
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
 	('/eu', BasqueHandler),

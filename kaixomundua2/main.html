@@ -14,25 +14,25 @@
         <tr>
           <td class="label">Nombre de usuario</td>
           <td><input type="text" name="usuario" id="usuario" value="" placeholder="Tu nombre ..."></td>
-          <td class="error"><span id="error_usuario" style="color:red"></span></td>
+
         </tr>
  
         <tr>
           <td class="label">Password</td>
 		  <td><input type="password" name="clave" id="clave" value=""></td>
-          <td class="error"><span id="error_clave" style="color:red"></span></td>          
+       
         </tr>
  
         <tr>
           <td class="label">Repetir Password</td>
 		  <td><input type="password" name="dobleclave" id="dobleclave" value="" placeholder="El mismo de antes"></td>
-          <td class="error"><span id="error_dobleclave" style="color:red"></span></td>
+
         </tr>
  
         <tr>
           <td class="label">Email</td>
 		  <td><input type="text" name="email" id="email" value=""></td>
-          <td class="error"><span id="error_email" style="color:red"></span></td>
+
         </tr>
 		
       </table>
@@ -41,30 +41,5 @@
 	 </form>
 		 
    </body> 
-    <script>
-    $(document)
-        .on('click', 'form input[type=submit]', function(e) {
-            $('span').text("");
-            var isValid = true;
-            if ($('#usuario').val()==''){
-                $('#error_usuario').text("Nombre incorrecto!");
-                isValid = false;
-            }
-            if ($('#clave').val()==''){
-                $('#error_clave').text("Password incorrecto!");
-                isValid = false;
-            }
-            if (($('#clave').val()!='' && $('#clave').val()!= $('#dobleclave').val())|| ($('#dobleclave').val()=='') ){
-                $('#error_dobleclave').text("Password no coincide!");
-                isValid = false;
-            }
-            if( $('#email').val()=='') {
-                $('#error_email').text("Email incorrecto!");
-                isValid = false;
-            }
-            if(!isValid) {
-              e.preventDefault();
-            }
-        });
-    </script>   
+
  </html>
