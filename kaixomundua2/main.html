@@ -1,8 +1,12 @@
-<<<<<<< HEAD
 <html>
 
+ <head>
     <link type="text/css" rel="stylesheet" href="/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://cdn.wideskyhosting.com/js/jquery.validate.js"></script>
+	<script src="/javascript/AjaxComprobacionEmail.js"></script>
+</head>
  
   <body>  
   <h1>DSSW-Tarea 2</h1>  
@@ -17,7 +21,15 @@
           <td><input type="text" name="usuario" id="usuario" value="" placeholder="Tu nombre ..."></td>
 
         </tr>
- 
+
+        <tr>
+          <td class="label">Email</td>
+		  <td><input type="text" name="email" onblur="AjaxComprobacionEmail()" id="email" value="{{email}}"/></td>
+ <!--         <td class="error"><span id="error_email" style="color:red"></span></td> -->
+		  <td><p class="error" id="emailMal" style="color:red">{{emailMal}}</p></td>
+		  <td><p class="correct" id="emailBien" style="color:blue">{{emailBien}}</p></td>
+        </tr>
+		
         <tr>
           <td class="label">Password</td>
 		  <td><input type="password" name="clave" id="clave" value=""></td>
@@ -30,88 +42,13 @@
 
         </tr>
  
-        <tr>
-          <td class="label">Email</td>
-		  <td><input type="text" name="email" id="email" value=""></td>
-
-        </tr>
-		
       </table>
  
      <input type="submit" value="Enviar">	  
 	 </form>
 		 
-   </body> 
+  </body> 
 
-=======
-<html>
+</html>
 
-    <link type="text/css" rel="stylesheet" href="/css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
- 
-  <body>  
-  <h1>DSSW-Tarea 2</h1>  
-    <h2>Rellene los campos por favor:</h2>
-	
-	<form method="post">
-	
-      <table>
-	  
-        <tr>
-          <td class="label">Nombre de usuario</td>
-          <td><input type="text" name="usuario" id="usuario" value="" placeholder="Tu nombre ..."></td>
-          <td class="error"><span id="error_usuario" style="color:red"></span></td>
-        </tr>
- 
-        <tr>
-          <td class="label">Password</td>
-		  <td><input type="password" name="clave" id="clave" value=""></td>
-          <td class="error"><span id="error_clave" style="color:red"></span></td>          
-        </tr>
- 
-        <tr>
-          <td class="label">Repetir Password</td>
-		  <td><input type="password" name="dobleclave" id="dobleclave" value="" placeholder="El mismo de antes"></td>
-          <td class="error"><span id="error_dobleclave" style="color:red"></span></td>
-        </tr>
- 
-        <tr>
-          <td class="label">Email</td>
-		  <td><input type="text" name="email" id="email" value=""></td>
-          <td class="error"><span id="error_email" style="color:red"></span></td>
-        </tr>
-		
-      </table>
- 
-     <input type="submit" value="Enviar">	  
-	 </form>
-		 
-   </body> 
-    <script>
-    $(document)
-        .on('click', 'form input[type=submit]', function(e) {
-            $('span').text("");
-            var isValid = true;
-            if ($('#usuario').val()==''){
-                $('#error_usuario').text("Nombre incorrecto!");
-                isValid = false;
-            }
-            if ($('#clave').val()==''){
-                $('#error_clave').text("Password incorrecto!");
-                isValid = false;
-            }
-            if (($('#clave').val()!='' && $('#clave').val()!= $('#dobleclave').val())|| ($('#dobleclave').val()=='') ){
-                $('#error_dobleclave').text("Password no coincide!");
-                isValid = false;
-            }
-            if( $('#email').val()=='') {
-                $('#error_email').text("Email incorrecto!");
-                isValid = false;
-            }
-            if(!isValid) {
-              e.preventDefault();
-            }
-        });
-    </script>   
->>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
- </html>
+    

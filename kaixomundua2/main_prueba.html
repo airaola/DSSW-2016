@@ -1,8 +1,13 @@
 <html>
 
+ <head>
     <link type="text/css" rel="stylesheet" href="/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
- 
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://cdn.wideskyhosting.com/js/jquery.validate.js"></script>
+	<script src="/javascript/validateAjax.js"></script>
+</head>
+
   <body>  
   <h1>DSSW-Tarea 2</h1>  
     <h2>Rellene los campos por favor:</h2>
@@ -16,8 +21,18 @@
           <td><input type="text" name="usuario" id="usuario" value="" placeholder="Tu nombre ..."></td>
           <td class="error"><span id="error_usuario" style="color:red"></span></td>
         </tr>
- 
+		
         <tr>
+          <td class="label">Email</td>
+		  <td><input type="text" name="email" id="email" value=""></td>
+ <!--		<td><input type="text" name="email" id="email" value="" placeholder="click-a aqui..."onclick="alert('La página se ha cargado completamente');"></td> 		
+		  <td><input type="text" name="email" onblur="validateAjax()" id="email" value="{{email}}></td>
+          <td class="error"><span id="error_email" style="color:red"></span></td> 
+		  <td><p class="error" id="emailMal" style="color:red">{{emailMal}}</p></td>
+		  <td><p class="correct" id="emailBien" style="color:red">{{emailBien}}</p></td> -->
+        </tr>
+        
+		<tr>
           <td class="label">Password</td>
 		  <td><input type="password" name="clave" id="clave" value=""></td>
           <td class="error"><span id="error_clave" style="color:red"></span></td>          
@@ -29,12 +44,6 @@
           <td class="error"><span id="error_dobleclave" style="color:red"></span></td>
         </tr>
  
-        <tr>
-          <td class="label">Email</td>
-		  <td><input type="text" name="email" id="email" value=""></td>
-          <td class="error"><span id="error_email" style="color:red"></span></td>
-        </tr>
-		
       </table>
  
      <input type="submit" value="Enviar">	  

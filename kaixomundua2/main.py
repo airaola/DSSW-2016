@@ -24,15 +24,24 @@
 #def post (self)
 #	self.request.get ('email')
 #
-<<<<<<< HEAD
 
 import webapp2
 import re
+import json
+from google.appengine.ext import ndb
 from google.appengine.ext.webapp \
 	import template
+	
+	
+class Registro (ndb.Model):
+	user = ndb.StringProperty(required = True)
+	password = ndb.StringProperty(required = True) 
+	correo = ndb.StringProperty(required = True)
+	when = ndb.TimeProperty (auto_now_add = True)
+	
 
 
-USUARIO_RE = re.compile(r"^([a-zA-Z0-9_-])$")
+USUARIO_RE = re.compile(r"^[a-zA-Z0-9]{1,30}")
 CLAVE_RE = re.compile(r"^.{6,20}$")
 EMAIL_RE = re.compile(r"^([a-zA-Z0-9_.])+\@(([a-zA-Z0-9])+\.)+([a-zA-Z0-9]{2,4})$")
 
@@ -45,31 +54,27 @@ def validar_clave(clave):
 def validar_email(email):
 	return EMAIL_RE.match(email)
 	
-		
-=======
-import webapp2
 
-from google.appengine.ext.webapp \
-	import template
-
->>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 class MainHandler(webapp2.RequestHandler):
     def get(self):
 	    self.response.write(template.render('main.html',{}))
 
     def post(self):
-<<<<<<< HEAD
 		
-		USUARIO=self.request.get("usuario")
-		CLAVE=self.request.get("clave")
-		DOBLECLAVE=self.request.get("dobleclave")
-		EMAIL=self.request.get("email")
+		USUARIO=self.request.get('usuario')
+		CLAVE=self.request.get('clave')
+		DOBLECLAVE=self.request.get('dobleclave')
+		EMAIL=self.request.get('email')
 	
 		error = False
+		error2 = False
 		
 		error_de_usuario=''
 		error_de_clave=''
 		error_de_email=''
+		
+		usuario_repetido=''
+		email_repetido=''
 		
 		if not(validar_usuario(USUARIO)):
 			error_de_usuario='Nombre incorrecto!!'
@@ -80,25 +85,57 @@ class MainHandler(webapp2.RequestHandler):
 		if not(validar_email(EMAIL)):
 			error_de_email='Email incorrecto!!'			
 			error = True
-		
-		if (error):		
+	
+		When=''
+		nusers = Registro.query(Registro.user==USUARIO).count()
+		if (nusers>=1):
+			usuario_repetido='Ese usuario ya esta registrado'
+			error2 = True
+		nemails = Registro.query(Registro.correo==EMAIL).count()
+		if (nemails>=1):
+			email_repetido='Ese e-mail ya esta registrado'
+			error2 = True
+
+	
+		if (error or error2):		
 			self.response.write(template.render('main.html',{}))
-			self.response.write(error_de_usuario + ' ' + error_de_clave + ' ' + error_de_email)
-		else:
+			if (error):
+				self.response.write(error_de_usuario + ' ' + error_de_clave + ' ' + error_de_email)
+			if (error2):		
+				self.response.write(usuario_repetido + ' ' + email_repetido)
+		if (error2 == False and error == False):
+			registro = Registro()
+			registro.user = USUARIO
+			registro.password = CLAVE
+			registro.correo = EMAIL		
+			registro.put()
 			self.response.write(template.render('main.html',{}))
 			self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
 			
+class ValidacionMainHandler ( webapp2.RequestHandler ) :
+	def get (self) :
+		error3 = False
+		emailMal = ""
+		email = self.request.get ('emailAjax')
+		
+		if not validar_email (email) :
+			error3 = True
+			emailMal = "No es un email valido"
+		
+		nemailsrep = Registro.query(Registro.correo==email).count()
+		if (nemailsrep>=1):
+			error3 = True
+			emailMal="Ese e-mail ya esta registrado"
+		
+		self.response.write (emailMal)
 		
 class BasqueHandler(webapp2.RequestHandler):
     def get(self):
-=======
 		self.response.write(template.render('main.html',{}))
 		self.response.write('''<span class="label">'''+"Kaixo: "+self.request.get("usuario")+'''</span><br><span class="label">Tus datos son correctos</span>''')
 		
 class BasqueHandler(webapp2.RequestHandler):
     def get(self):
-
->>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Kaixo Mundoa </h1> <img src=/images/irudia.gif>')
         
 class SpanishHandler(webapp2.RequestHandler):
@@ -109,59 +146,10 @@ class EnglishHandler(webapp2.RequestHandler):
     def get(self):
 		self.response.write('<head><link type="text/css" rel="stylesheet" href="/css/main.css"></head><h1>Hello World </h1> <img src=/images/irudia.gif>')
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> 7a2bd714d7c99892fa473a327dc7df0aee45b35a
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
 	('/eu', BasqueHandler),
 	('/es', SpanishHandler),
-	('/en', EnglishHandler)
+	('/en', EnglishHandler),
+	('/validacion', ValidacionMainHandler),
 ], debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#USER_RE= re.compile(r"^[a-zA-Z0-9](3,20)$")
