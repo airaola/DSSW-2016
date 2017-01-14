@@ -9,42 +9,63 @@
 </head>
  
   <body>  
-  <h1>DSSW-Tarea 2</h1>  
+  <h1>DSSW - Tarea de Asier Iraola Iribar</h1>  
     <h2>Rellene los campos por favor:</h2>
 	
 	<form method="post">
-	
-      <table>
+	<div style="   position: absolute;  height: 150px; width:540px;  margin:50px 0 0 0px; background: #F0F8FF; border: ridge #0f0fef 1px;">
+    
+	<table>
 	  
         <tr>
           <td class="label">Nombre de usuario</td>
           <td><input type="text" name="usuario" id="usuario" value="" placeholder="Tu nombre ..."></td>
-
         </tr>
 
         <tr>
           <td class="label">Email</td>
 		  <td><input type="text" name="email" onblur="AjaxComprobacionEmail()" id="email" value="{{email}}"/></td>
- <!--         <td class="error"><span id="error_email" style="color:red"></span></td> -->
 		  <td><p class="error" id="emailMal" style="color:red">{{emailMal}}</p></td>
 		  <td><p class="correct" id="emailBien" style="color:blue">{{emailBien}}</p></td>
         </tr>
 		
         <tr>
           <td class="label">Password</td>
-		  <td><input type="password" name="clave" id="clave" value=""></td>
-       
+		  <td><input type="password" name="clave" id="clave" value=""></td>   
         </tr>
  
         <tr>
           <td class="label">Repetir Password</td>
 		  <td><input type="password" name="dobleclave" id="dobleclave" value="" placeholder="El mismo de antes"></td>
-
         </tr>
  
       </table>
  
-     <input type="submit" value="Enviar">	  
+     <input type="submit" value="Registrarse">
+	 
+	 </div>
+	</form>
+	<form method="get" action="/sesion">
+	<div style="   position: absolute; height: 150px; width:500px; margin:50px 0 0 550px; background: #F0F8FF; border: ridge #0f0fef 1px;">
+    
+	<table>
+	  
+        <tr>
+          <td class="label">Email</td>
+		  <td><input type="text" name="emailInicio" id="emailInicio" value="{{email}}"/></td>
+        </tr>
+		
+        <tr>
+          <td class="label">Password</td>
+		  <td><input type="password" name="claveInicio" id="claveInicio" value=""></td>       
+        </tr>
+ 
+      </table>
+	
+     <input type="submit" value="Iniciar sesión">
+	 
+	 </div>
+	 
 	 </form>
 		 
   </body> 

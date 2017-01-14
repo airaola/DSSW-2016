@@ -7,5 +7,24 @@
 body {
 	
   font-family: YourFontName;
-  background-color: #8fff4f;
+  background: url(background.jpg);
+  background-color: #2FFC0B;
 }
+
+div
+{
+    color: 	#808080;
+	background-color: #2FFC0B;
+}
+
+div span
+{
+    color: 	#808080;
+	background-color: #2FFC0B;
+}
+
+h2
+{
+    color: #B22222;
+}
+
